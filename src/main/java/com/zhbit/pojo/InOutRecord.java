@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
@@ -17,7 +16,6 @@ public class InOutRecord {
     @TableId("id")
     private int id;
 
-    @TableField("carNo")
     private String carNo;
 
     @TableField("in_time")
