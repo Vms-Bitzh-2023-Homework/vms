@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class InOutRecord {
 
+    @TableId("id")
     private int id;
 
     @TableField("carNo")
