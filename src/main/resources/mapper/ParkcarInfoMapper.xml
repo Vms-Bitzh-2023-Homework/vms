@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhbit.mapper.ParkcarInfoMapper">
+
+    <select id="getParkcarInfo" resultType="parkcarInfo">
+        select * from `parkcar_info`
+    </select>
+
+    <select id="getParkInfoByParkNo" resultType="parkcarInfo">
+        select * from `parkcar_info` where `parkNo` = #{parkNo};
+    </select>
+
+    <select id="getParkcarInfoByParkID" resultType="parkcarInfo">
+        select * from `parkcar_info` where `parkID` = #{parkID};
+    </select>
+
+    <delete id="deleteParkcarInfo" parameterType="int">
+        delete from `parkcar_info` where `parkID` = #{parkID}
+    </delete>
+
+    <insert id="addParkcarInfo" parameterType="parkcarInfo" >
+        insert into `parkcar_info`(`parkNo`,`parkID`,`allspace`,`occupied`) values (#{parkNo},#{parkID},#{allspace},#{occupied})
+    </insert>
+
+    <update id="updateParkcarInfo" parameterType="parkcarInfo">
+        update `parkcar_info` set parkID=#{parkID},allspace=#{allspace},occupied=#{occupied} where parkID=#{parkID}
+    </update>
+
+
+</mapper>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhbit.mapper.OrderMapper">
+    <select id="getOrder" resultType="order">
+        select * from `order`;
+    </select>
+    <select id="getOrderById" resultType="order">
+        select * from `order` where `id` = #{id};
+    </select>
+
+    <select id="getOrderByName" resultType="order">
+        select * from `order` where `carNumber` = #{carNumber};
+    </select>
+
+    <delete id="deleteOrder" parameterType="int">
+        delete from `order` where `id` = #{id}
+    </delete>
+
+    <insert id="addOrder" parameterType="order" >
+        insert into `order`(`phone`,`status`,`carNumber`,`parkingTime`,`money`) values (#{phone},#{status},#{carNumber},#{parkingTime},#{money})
+    </insert>
+
+    <update id="updateOrder" parameterType="order">
+        update `order` set `phone`=#{phone},`status`=#{status},`carNumber`=#{carNumber},`parkingTime`=#{parkingTime},`money`=#{money} where id=#{id}
+    </update>
+</mapper>

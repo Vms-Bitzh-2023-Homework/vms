@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhbit.mapper.VisitorInfoMapper">
+
+    <select id="getVisitorInfo" resultType="visitorInfo">
+        select * from `visitor_info`;
+    </select>
+
+    <select id="getVisitorInfoById" resultType="visitorInfo">
+        select * from `visitor_info` where `id` = #{id};
+    </select>
+
+    <select id="getVisitorInfoByName" resultType="visitorInfo">
+        select * from `visitor_info` where `visName` = #{visName};
+    </select>
+
+    <delete id="deleteVisitorInfo" parameterType="int">
+        delete from `visitor_info` where `id` = #{id}
+    </delete>
+
+    <insert id="addVisitorInfo" parameterType="visitorInfo" >
+        insert into `visitor_info`(`visPhone`,`carNo`,`visName`) values (#{visPhone},#{carNo},#{visName})
+    </insert>
+
+    <update id="updateVisitorInfo" parameterType="visitorInfo">
+        update `visitor_info` set visPhone=#{visPhone},carNo=#{carNo},visName=#{visName} where id=#{id}
+    </update>
+
+</mapper>

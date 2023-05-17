@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhbit.mapper.InOutRecordMapper">
+
+    <select id="getRecord" resultType="InOutRecord">
+        select * from in_out_record
+    </select>
+
+    <select id="getRecordBycarNo" resultType="InOutRecord">
+        select * from in_out_record where `carNo`=#{carNo}
+    </select>
+
+    <delete id="deleteRecord" parameterType="int">
+        delete from `in_out_record` where `id`=#{id}
+    </delete>
+
+    <insert id="addRecord" parameterType="inOutRecord">
+        insert into `in_out_record`(`carNo`,`In_time`,`Out_time`) values (#{carNo},#{In_time},#{Out_time})
+    </insert>
+
+    <update id="updateRecord" parameterType="inOutRecord">
+        update `in_out_record` set `carNo`=#{carNo},`In_time`=#{In_time},`Out_time`=#{Out_time} where `id`=#{id}
+    </update>
+
+</mapper>
