@@ -16,6 +16,7 @@ public class InOutRecord {
     @TableId("id")
     private int id;
 
+    @TableField("carNo")
     private String carNo;
 
     @TableField("in_time")

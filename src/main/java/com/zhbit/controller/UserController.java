@@ -77,9 +77,8 @@ public class UserController {
 
     @PostMapping("/user/addUser")
     public Result addUser(@RequestBody Map<String, String> map, HttpServletRequest request) {
-        String perms = null;
         String token = request.getHeader("Authorization");
-        DecodedJWT decodedJWT = null;
+
         try {
             Algorithm algorithm = Algorithm.HMAC256(this.secret_key);
             JWTVerifier verifier = JWT.require(algorithm)
@@ -87,8 +86,8 @@ public class UserController {
                     .withIssuer("auth0")
                     // reusable verifier instance
                     .build();
-            decodedJWT = verifier.verify(token);
-            perms = String.valueOf(decodedJWT.getClaim("perms"));
+            DecodedJWT decodedJWT = verifier.verify(token);
+            String perms = String.valueOf(decodedJWT.getClaim("perms"));
             if (perms.equals(Perms.admin)) {
                 User user = new User();
                 user.setUserName(map.get("userName"));
