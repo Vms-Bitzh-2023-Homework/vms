@@ -65,6 +65,6 @@ public class VisitorInfoController {
         visitorInfo.setVisName(map.get("visName"));
         boolean flag = visitorInfoService.updateById(visitorInfo);
         String msg = "update success";
-        return new Result(flag ? StatusCode.SAVE_OK:StatusCode.SAVE_ERR,msg);
+        return new Result(flag ? StatusCode.UPDATE_OK:StatusCode.UPDATE_ERR,msg);
     }
 }

@@ -51,28 +51,28 @@ public class InOutRecordController {
         return new Result(flag ? StatusCode.DELETE_OK:StatusCode.DELETE_ERR,msg);
     }
 
-    //@PostMapping
-    //public Result addRecord(@RequestBody Map<String,String> map) throws ParseException {
-    //    //System.out.println("进入了add");
-    //    InOutRecord inOutRecord = new InOutRecord();
-    //    inOutRecord.setCarNo(map.get("carNo"));
-    //    inOutRecord.setIn_time(LocalDateTime.parse(map.get("in_time"),dateFormat));
-    //    inOutRecord.setOut_time(map.get("out_time") == null ? null : LocalDateTime.parse(map.get("out_time"),dateFormat));
-    //    boolean flag = inOutRecordService.addRecord(inOutRecord);
-    //    String msg = "save success";
-    //    return new Result(flag ? StatusCode.SAVE_OK:StatusCode.SAVE_ERR,msg);
-    //}
-    //
-    //@PutMapping
-    //public Result updateVisitorInfo(@RequestBody Map<String,String> map) throws ParseException {
-    //    //System.out.println("进入了update");
-    //    InOutRecord inOutRecord = new InOutRecord();
-    //    inOutRecord.setId(Integer.parseInt(map.get("id")));
-    //    inOutRecord.setCarNo(map.get("carNo"));
-    //    inOutRecord.setIn_time(LocalDateTime.parse(map.get("in_time"),dateFormat));
-    //    inOutRecord.setOut_time(map.get("out_time") == null ? null : LocalDateTime.parse(map.get("out_time"),dateFormat));
-    //    boolean flag = inOutRecordService.updateRecord(inOutRecord);
-    //    String msg = "update success";
-    //    return new Result(flag ? StatusCode.UPDATE_OK:StatusCode.UPDATE_ERR,msg);
-    //}
+    @PostMapping
+    public Result addRecord(@RequestBody Map<String,String> map) throws ParseException {
+        //System.out.println("进入了add");
+        InOutRecord inOutRecord = new InOutRecord();
+        inOutRecord.setCarNo(map.get("carNo"));
+        inOutRecord.setIn_time(LocalDateTime.parse(map.get("in_time"),dateFormat));
+        inOutRecord.setOut_time(map.get("out_time") == null ? null : LocalDateTime.parse(map.get("out_time"),dateFormat));
+        boolean flag = inOutRecordService.addRecord(inOutRecord);
+        String msg = "save success";
+        return new Result(flag ? StatusCode.SAVE_OK:StatusCode.SAVE_ERR,msg);
+    }
+
+    @PutMapping
+    public Result updateVisitorInfo(@RequestBody Map<String,String> map) throws ParseException {
+        //System.out.println("进入了update");
+        InOutRecord inOutRecord = new InOutRecord();
+        inOutRecord.setId(Integer.parseInt(map.get("id")));
+        inOutRecord.setCarNo(map.get("carNo"));
+        inOutRecord.setIn_time(LocalDateTime.parse(map.get("in_time"),dateFormat));
+        inOutRecord.setOut_time(map.get("out_time") == null ? null : LocalDateTime.parse(map.get("out_time"),dateFormat));
+        boolean flag = inOutRecordService.updateRecord(inOutRecord);
+        String msg = "update success";
+        return new Result(flag ? StatusCode.UPDATE_OK:StatusCode.UPDATE_ERR,msg);
+    }
 }

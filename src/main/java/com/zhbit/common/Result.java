@@ -8,7 +8,6 @@ public class Result {
     private int statusCode;
     private String msg;
     private Object data;
-    private String token;
 
     public Result() {
     }
@@ -24,9 +23,4 @@ public class Result {
         this.msg = msg;
     }
 
-    public Result(int statusCode, String msg, String token) {
-        this.statusCode = statusCode;
-        this.msg = msg;
-        this.token = token;
-    }
 }

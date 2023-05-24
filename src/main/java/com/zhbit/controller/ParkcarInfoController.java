@@ -58,7 +58,7 @@ public class ParkcarInfoController {
         parkcarInfo.setOccupied(Integer.parseInt(map.get("occupied")));
         boolean flag = parkcarInfoService.updateParkcarInfo(parkcarInfo);
         String msg = "update success";
-        return new Result(flag ? StatusCode.SAVE_OK:StatusCode.SAVE_ERR,msg);
+        return new Result(flag ? StatusCode.UPDATE_OK:StatusCode.UPDATE_ERR,msg);
     }
 
     @DeleteMapping("/{parkID}")

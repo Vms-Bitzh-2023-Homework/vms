@@ -54,7 +54,7 @@ public class OrderController {
 
         boolean flag = orderService.addOrder(order);
         String msg = "save success";
-        return new Result(flag ? StatusCode.SAVE_OK:StatusCode.SAVE_ERR,msg);
+        return new Result(flag ? StatusCode.UPDATE_OK:StatusCode.UPDATE_ERR,msg);
     }
 
     @PutMapping
