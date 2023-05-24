@@ -9,9 +9,6 @@ public class Result {
     private String msg;
     private Object data;
 
-    public Result() {
-    }
-
     public Result(int statusCode, String msg, Object data) {
         this.statusCode = statusCode;
         this.msg = msg;

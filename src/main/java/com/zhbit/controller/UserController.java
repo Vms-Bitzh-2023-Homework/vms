@@ -19,6 +19,7 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import static com.zhbit.common.StatusCode.*;
@@ -30,39 +31,13 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @Value("${jwt.secret_key}")
-    private String secret_key;
-
-    @Value("${jwt.exp_time}")
-    private int expTime;
-
     @GetMapping("/login")
-    public Result login(String userName, String password, HttpServletResponse response) {
-
-        User user = userService.getUserByName(userName);
-        if (ObjectUtils.isEmpty(user)) {
-            return new Result(LOGIN_ERR, "用户名不存在");
-        } else {
-            if (user.getPassword().equals(password)) {
-                try {
-                    Algorithm algorithm = Algorithm.HMAC256(this.secret_key);
-                    String token = JWT.create()
-                            .withIssuer("auth0")
-                            .withClaim("id", user.getId())
-                            .withClaim("perms", user.getPerms())
-                            .withClaim("userName", userName).withExpiresAt(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * expTime))
-                            .sign(algorithm);
-                    response.setHeader("token", token);
-                    return new Result(LOGIN_OK, "登录成功", token);
-                } catch (JWTCreationException exception) {
-                    // Invalid Signing configuration / Couldn't convert Claims.
-                }
-
-            } else {
-                return new Result(LOGIN_ERR, "密码错误");
-            }
+    public Map login(String userName, String password, HttpServletResponse response) {
+        Map login = userService.Login(userName, password);
+        if (login.get("statusCode").equals(LOGIN_OK)) {
+            response.setHeader("token",(String) login.get("token"));
         }
-        return null;
+        return login;
     }
 
     @PutMapping("/user/modifyPassword")
@@ -78,29 +53,6 @@ public class UserController {
     @PostMapping("/user/addUser")
     public Result addUser(@RequestBody Map<String, String> map, HttpServletRequest request) {
         String token = request.getHeader("Authorization");
-
-        try {
-            Algorithm algorithm = Algorithm.HMAC256(this.secret_key);
-            JWTVerifier verifier = JWT.require(algorithm)
-                    // specify an specific claim validations
-                    .withIssuer("auth0")
-                    // reusable verifier instance
-                    .build();
-            DecodedJWT decodedJWT = verifier.verify(token);
-            String perms = String.valueOf(decodedJWT.getClaim("perms"));
-            if (perms.equals(Perms.admin)) {
-                User user = new User();
-                user.setUserName(map.get("userName"));
-                user.setPassword(map.get("password"));
-                user.setAdPhone(map.get("adPhone"));
-                boolean flag = userService.save(user);
-                String msg = "save success";
-                return new Result(flag ? StatusCode.SAVE_OK : StatusCode.SAVE_ERR, msg);
-            }else {
-                return new Result(StatusCode.SAVE_ERR, "您没有权限添加用户");
-            }
-        } catch (JWTVerificationException exception) {
-            return null;
-        }
+        return userService.addUser(map,token);
     }
 }
