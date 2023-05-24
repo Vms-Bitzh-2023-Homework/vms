@@ -3,13 +3,11 @@ package com.zhbit.controller;
 import com.zhbit.common.Result;
 import com.zhbit.common.StatusCode;
 import com.zhbit.pojo.Order;
-import com.zhbit.pojo.Order;
 import com.zhbit.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/order")
@@ -39,13 +37,13 @@ public class OrderController {
         List<Order> order=orderService.getOrderById(id);
         if(order.get(0).getStatus().equals("已付款"))
         {
-            String msg = "Delete failed, status:已付款";;
+            String msg = "Delete failed, status:已付款";
             return new Result(StatusCode.DELETE_ERR,msg);
         }
         boolean flag = orderService.deleteOrder(id);
         List<Order> visitorInfoById = orderService.getOrderById(id);
         //System.out.println(orderService.getOrderById(id));
-        String msg = visitorInfoById == null ? "delete success" : "Delete failed, please try again";;
+        String msg = visitorInfoById == null ? "delete success" : "Delete failed, please try again";
         return new Result(flag ? StatusCode.DELETE_OK:StatusCode.DELETE_ERR,msg);
     }
 
