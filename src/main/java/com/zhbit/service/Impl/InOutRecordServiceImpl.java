@@ -39,12 +39,18 @@ public class InOutRecordServiceImpl extends ServiceImpl<InOutRecordMapper,InOutR
     @Override
     public boolean addRecord(InOutRecord inOutRecord) {
 
-        Order order = new Order();
-        order.setCarNumber(inOutRecord.getCarNo());
-        order.setStatus(Constant.status1);
+        try{
+            Order order = new Order();
+            order.setCarNumber(inOutRecord.getCarNo());
+            order.setStatus(Constant.status1);
 
-        orderMapper.addOrder(order);
-        return inOutRecordMapper.addRecord(inOutRecord);
+            orderMapper.addOrder(order);
+            inOutRecordMapper.addRecord(inOutRecord);
+
+            return true;
+        }catch (Exception e) {
+            return false;
+        }
 
     }
 
