@@ -21,6 +21,6 @@
     </insert>
 
     <update id="updateOrder" parameterType="order">
-        update `order` set `phone`=#{phone},`status`=#{status},`carNumber`=#{carNumber},`parkingTime`=#{parkingTime},`money`=#{money} where id=#{id}
+        update `order` set `phone`=#{phone},`status`=#{status},`parkingTime`=#{parkingTime},`money`=#{money} where carNumber=#{carNumber}
     </update>
 </mapper>
