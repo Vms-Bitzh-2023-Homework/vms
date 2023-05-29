@@ -1,12 +1,15 @@
 package com.zhbit.service.Impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.zhbit.common.Constant;
 import com.zhbit.mapper.InOutRecordMapper;
+import com.zhbit.mapper.OrderMapper;
 import com.zhbit.pojo.InOutRecord;
+import com.zhbit.pojo.Order;
 import com.zhbit.service.InOutRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
@@ -15,29 +18,46 @@ public class InOutRecordServiceImpl extends ServiceImpl<InOutRecordMapper,InOutR
     @Autowired
     InOutRecordMapper inOutRecordMapper;
 
+    @Autowired
+    OrderMapper orderMapper;
+
     @Override
     public List<InOutRecord> getRecord() {
         return inOutRecordMapper.getRecord();
     }
 
     @Override
-    public List<InOutRecord> getRecordBycarNo(String carNo) {
-        return inOutRecordMapper.getRecordBycarNo(carNo);
+    public List<InOutRecord> getRecordByCarNo(String carNo) {
+        return inOutRecordMapper.getRecordByCarNo(carNo);
     }
 
     @Override
     public boolean deleteRecord(int id) {
-        inOutRecordMapper.deleteRecord(id);
-        return true;
+        return inOutRecordMapper.deleteRecord(id);
     }
 
     @Override
     public boolean addRecord(InOutRecord inOutRecord) {
+
+        Order order = new Order();
+        order.setCarNumber(inOutRecord.getCarNo());
+        order.setStatus(Constant.status1);
+
+        orderMapper.addOrder(order);
         return inOutRecordMapper.addRecord(inOutRecord);
+
     }
 
+    @Transactional(rollbackFor=Exception.class)
     @Override
     public boolean updateRecord(InOutRecord inOutRecord) {
+
+        Order order = new Order();
+        order.setCarNumber(inOutRecord.getCarNo());
+        order.setStatus(Constant.status2);
+
+        orderMapper.updateOrder(order);
         return inOutRecordMapper.updateRecord(inOutRecord);
     }
+
 }
