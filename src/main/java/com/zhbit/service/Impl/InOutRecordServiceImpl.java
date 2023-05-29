@@ -51,13 +51,18 @@ public class InOutRecordServiceImpl extends ServiceImpl<InOutRecordMapper,InOutR
     @Transactional(rollbackFor=Exception.class)
     @Override
     public boolean updateRecord(InOutRecord inOutRecord) {
+        try {
+            Order order = new Order();
+            order.setCarNumber(inOutRecord.getCarNo());
+            order.setStatus(Constant.status2);
 
-        Order order = new Order();
-        order.setCarNumber(inOutRecord.getCarNo());
-        order.setStatus(Constant.status2);
+            orderMapper.updateOrder(order);
+            inOutRecordMapper.updateRecord(inOutRecord);
 
-        orderMapper.updateOrder(order);
-        return inOutRecordMapper.updateRecord(inOutRecord);
+            return true; // 更新成功
+        } catch (Exception e) {
+            return false; // 更新失败
+        }
     }
 
 }
