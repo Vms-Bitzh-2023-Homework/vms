@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class InOutRecord {
 
     @TableId("id")
-    private int id;
+    private Integer id;
 
     @TableField("carNo")
     private String carNo;

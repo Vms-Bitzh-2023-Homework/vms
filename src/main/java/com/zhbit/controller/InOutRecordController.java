@@ -8,7 +8,6 @@ import com.zhbit.service.InOutRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -26,7 +25,6 @@ public class InOutRecordController {
 
     @GetMapping
     public Result getRecord(){
-        //System.out.println("进入了all");
         List<InOutRecord> record = inOutRecordService.list();
         Integer statusCode = record != null ? StatusCode.GET_OK : StatusCode.GET_ERR;
         String msg = record != null ? "query success" : "数据查询失败，请重试！";
@@ -34,13 +32,13 @@ public class InOutRecordController {
     }
 
     @GetMapping("/{carNo}")
-    public Result getRecordBycarNo(@PathVariable String carNo) {
+    public Result getRecordByCarNo(@PathVariable String carNo) {
         QueryWrapper wrapper = new QueryWrapper();
         wrapper.like("carNo",carNo);
-        List<InOutRecord> recordBycarNo = inOutRecordService.listMaps(wrapper);
-        Integer statusCode = recordBycarNo != null ? StatusCode.GET_OK : StatusCode.GET_ERR;
-        String msg = recordBycarNo != null ? "query success" : "数据查询失败，请重试！";
-        return new Result(statusCode,msg,recordBycarNo);
+        List<InOutRecord> recordByCarNo = inOutRecordService.listMaps(wrapper);
+        Integer statusCode = recordByCarNo != null ? StatusCode.GET_OK : StatusCode.GET_ERR;
+        String msg = recordByCarNo != null ? "query success" : "数据查询失败，请重试！";
+        return new Result(statusCode,msg,recordByCarNo);
     }
 
     @DeleteMapping("/{id}")
@@ -51,8 +49,7 @@ public class InOutRecordController {
     }
 
     @PostMapping
-    public Result addRecord(@RequestBody Map<String,String> map) throws ParseException {
-        //System.out.println("进入了add");
+    public Result addRecord(@RequestBody Map<String,String> map) {
         InOutRecord inOutRecord = new InOutRecord();
         inOutRecord.setCarNo(map.get("carNo"));
         inOutRecord.setIn_time(LocalDateTime.parse(map.get("in_time"),dateFormat));
@@ -63,8 +60,7 @@ public class InOutRecordController {
     }
 
     @PutMapping
-    public Result updateVisitorInfo(@RequestBody Map<String,String> map) throws ParseException {
-        //System.out.println("进入了update");
+    public Result updateVisitorInfo(@RequestBody Map<String,String> map) {
         InOutRecord inOutRecord = new InOutRecord();
         inOutRecord.setId(Integer.parseInt(map.get("id")));
         inOutRecord.setCarNo(map.get("carNo"));

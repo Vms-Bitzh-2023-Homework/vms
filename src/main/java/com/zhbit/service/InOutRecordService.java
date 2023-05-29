@@ -9,13 +9,12 @@ public interface InOutRecordService extends IService<InOutRecord> {
 
     List<InOutRecord> getRecord();
 
-    List<InOutRecord> getRecordBycarNo(String carNo);
+    List<InOutRecord> getRecordByCarNo(String carNo);
 
     boolean deleteRecord(int id);
 
     boolean addRecord(InOutRecord inOutRecord);
 
     boolean updateRecord(InOutRecord inOutRecord);
-
 
 }
