@@ -8,10 +8,8 @@ import com.zhbit.pojo.InOutRecord;
 import com.zhbit.pojo.Order;
 import com.zhbit.service.InOutRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 
 @Service
@@ -22,9 +20,6 @@ public class InOutRecordServiceImpl extends ServiceImpl<InOutRecordMapper,InOutR
 
     @Autowired
     OrderMapper orderMapper;
-
-    @Autowired
-    private ApplicationEventPublisher eventPublisher;
 
     @Override
     public List<InOutRecord> getRecord() {
@@ -44,18 +39,13 @@ public class InOutRecordServiceImpl extends ServiceImpl<InOutRecordMapper,InOutR
     @Override
     public boolean addRecord(InOutRecord inOutRecord) {
 
-        try{
-            Order order = new Order();
-            order.setCarNumber(inOutRecord.getCarNo());
-            order.setStatus(Constant.status1);
+        Order order = new Order();
+        order.setCarNumber(inOutRecord.getCarNo());
+        order.setStatus(Constant.status1);
 
-            orderMapper.addOrder(order);
-            inOutRecordMapper.addRecord(inOutRecord);
+        orderMapper.addOrder(order);
+        return inOutRecordMapper.addRecord(inOutRecord);
 
-            return true;
-        }catch (Exception e) {
-            return false;
-        }
     }
 
     @Transactional(rollbackFor=Exception.class)
@@ -74,4 +64,5 @@ public class InOutRecordServiceImpl extends ServiceImpl<InOutRecordMapper,InOutR
             return false; // 更新失败
         }
     }
+
 }
