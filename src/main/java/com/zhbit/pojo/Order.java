@@ -16,7 +16,7 @@ public class Order {
 
     private String carNumber;
 
-    private Double parkingTime;
+    private String parkingTime;
 
     private String status;
 

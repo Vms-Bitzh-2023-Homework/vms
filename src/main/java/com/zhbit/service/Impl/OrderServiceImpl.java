@@ -1,8 +1,6 @@
 package com.zhbit.service.Impl;
 
 import com.zhbit.mapper.OrderMapper;
-import com.zhbit.mapper.OrderMapper;
-import com.zhbit.pojo.Order;
 import com.zhbit.pojo.Order;
 import com.zhbit.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +31,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean deleteOrder(int id) {
-        orderMapper.deleteOrder(id);
-        return true;
+        return orderMapper.deleteOrder(id);
     }
 
     @Override

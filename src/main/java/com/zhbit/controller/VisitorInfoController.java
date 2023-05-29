@@ -40,8 +40,7 @@ public class VisitorInfoController {
     public Result deleteVisitorInfo(@PathVariable int id){
         boolean flag = visitorInfoService.removeById(id);
         List<VisitorInfo> visitorInfoById = (List<VisitorInfo>) visitorInfoService.getById(id);
-        //System.out.println(visitorInfoService.getVisitorInfoById(id));
-        String msg = visitorInfoById == null ? "delete success" : "Delete failed, please try again";;
+        String msg = visitorInfoById == null ? "delete success" : "Delete failed, please try again";
         return new Result(flag ? StatusCode.DELETE_OK:StatusCode.DELETE_ERR,msg);
     }
 

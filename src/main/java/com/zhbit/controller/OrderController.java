@@ -42,14 +42,12 @@ public class OrderController {
         }
         boolean flag = orderService.deleteOrder(id);
         List<Order> visitorInfoById = orderService.getOrderById(id);
-        //System.out.println(orderService.getOrderById(id));
         String msg = visitorInfoById == null ? "delete success" : "Delete failed, please try again";
         return new Result(flag ? StatusCode.DELETE_OK:StatusCode.DELETE_ERR,msg);
     }
 
     @PostMapping
     public Result addOrder(@RequestBody Order order){
-
         boolean flag = orderService.addOrder(order);
         String msg = "save success";
         return new Result(flag ? StatusCode.UPDATE_OK:StatusCode.UPDATE_ERR,msg);
@@ -57,7 +55,6 @@ public class OrderController {
 
     @PutMapping
     public Result updateOrder(@RequestBody Order order) {
-
         boolean flag = orderService.updateOrder(order);
         String msg = "update success";
         return new Result(flag ? StatusCode.SAVE_OK:StatusCode.SAVE_ERR,msg);

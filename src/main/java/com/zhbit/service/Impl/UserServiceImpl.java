@@ -7,7 +7,7 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zhbit.common.Perms;
+import com.zhbit.common.Constant;
 import com.zhbit.common.Result;
 import com.zhbit.common.StatusCode;
 import com.zhbit.mapper.UserMapper;
@@ -18,8 +18,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
-import javax.servlet.http.HttpServletResponse;
-import java.net.http.HttpResponse;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -93,7 +91,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
                     .build();
             DecodedJWT decodedJWT = verifier.verify(token);
             String  perms = String.valueOf(decodedJWT.getClaim("perms"));
-            if (perms.equals(Perms.admin)) {
+            if (perms.equals(Constant.admin)) {
                 User user = new User();
                 user.setUserName(map.get("userName"));
                 user.setPassword(map.get("password"));
