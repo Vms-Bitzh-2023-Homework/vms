@@ -60,7 +60,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
                             .withIssuer("auth0")
                             .withClaim("id",user.getId())
                             .withClaim("perms",user.getPerms())
-                            .withClaim("userName", userName).withExpiresAt(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * expTime))
+                            .withClaim("userName", userName)
+                            .withExpiresAt(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * expTime))
                             .sign(algorithm);
                     HashMap map2 = new HashMap();
                     map2.put("statusCode", LOGIN_OK);

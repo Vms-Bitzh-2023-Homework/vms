@@ -1,6 +1,9 @@
 package com.zhbit.service.Impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.zhbit.mapper.InOutRecordMapper;
 import com.zhbit.mapper.OrderMapper;
+import com.zhbit.pojo.InOutRecord;
 import com.zhbit.pojo.Order;
 import com.zhbit.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class OrderServiceImpl implements OrderService {
+public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements OrderService {
 
     @Autowired
     OrderMapper orderMapper;

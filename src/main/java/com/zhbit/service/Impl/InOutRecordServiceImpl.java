@@ -36,6 +36,7 @@ public class InOutRecordServiceImpl extends ServiceImpl<InOutRecordMapper,InOutR
         return inOutRecordMapper.deleteRecord(id);
     }
 
+    @Transactional(rollbackFor=Exception.class)
     @Override
     public boolean addRecord(InOutRecord inOutRecord) {
 

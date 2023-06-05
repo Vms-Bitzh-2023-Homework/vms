@@ -41,8 +41,7 @@ public class OrderController {
             return new Result(StatusCode.DELETE_ERR,msg);
         }
         boolean flag = orderService.deleteOrder(id);
-        List<Order> visitorInfoById = orderService.getOrderById(id);
-        String msg = visitorInfoById == null ? "delete success" : "Delete failed, please try again";
+        String msg = flag == true ? "delete success" : "Delete failed, please try again";
         return new Result(flag ? StatusCode.DELETE_OK:StatusCode.DELETE_ERR,msg);
     }
 

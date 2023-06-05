@@ -39,29 +39,28 @@ public class VisitorInfoController {
     @DeleteMapping("/{id}")
     public Result deleteVisitorInfo(@PathVariable int id){
         boolean flag = visitorInfoService.removeById(id);
-        List<VisitorInfo> visitorInfoById = (List<VisitorInfo>) visitorInfoService.getById(id);
-        String msg = visitorInfoById == null ? "delete success" : "Delete failed, please try again";
+        String msg = flag == true ? "delete success" : "Delete failed, please try again";
         return new Result(flag ? StatusCode.DELETE_OK:StatusCode.DELETE_ERR,msg);
     }
 
     @PostMapping
-    public Result addVisitorInfo(@RequestBody Map<String, String> map){
-        VisitorInfo visitorInfo = new VisitorInfo();
-        visitorInfo.setVisPhone(map.get("visPhone"));
-        visitorInfo.setCarNo(map.get("carNo"));
-        visitorInfo.setVisName(map.get("visName"));
+    public Result addVisitorInfo(@RequestBody VisitorInfo visitorInfo){
+        //VisitorInfo visitorInfo = new VisitorInfo();
+        //visitorInfo.setVisPhone(map.get("visPhone"));
+        //visitorInfo.setCarNo(map.get("carNo"));
+        //visitorInfo.setVisName(map.get("visName"));
         boolean flag = visitorInfoService.save(visitorInfo);
         String msg = "save success";
         return new Result(flag ? StatusCode.SAVE_OK:StatusCode.SAVE_ERR,msg);
     }
 
     @PutMapping
-    public Result updateVisitorInfo(@RequestBody Map<String, String> map) {
-        VisitorInfo visitorInfo = new VisitorInfo();
-        visitorInfo.setId(Integer.parseInt(map.get("id")));
-        visitorInfo.setVisPhone(map.get("visPhone"));
-        visitorInfo.setCarNo(map.get("carNo"));
-        visitorInfo.setVisName(map.get("visName"));
+    public Result updateVisitorInfo(@RequestBody VisitorInfo visitorInfo) {
+        //VisitorInfo visitorInfo = new VisitorInfo();
+        //visitorInfo.setId(Integer.parseInt(map.get("id")));
+        //visitorInfo.setVisPhone(map.get("visPhone"));
+        //visitorInfo.setCarNo(map.get("carNo"));
+        //visitorInfo.setVisName(map.get("visName"));
         boolean flag = visitorInfoService.updateById(visitorInfo);
         String msg = "update success";
         return new Result(flag ? StatusCode.UPDATE_OK:StatusCode.UPDATE_ERR,msg);

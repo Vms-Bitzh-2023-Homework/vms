@@ -4,6 +4,7 @@
     <select id="getOrder" resultType="order">
         select * from `order`;
     </select>
+
     <select id="getOrderById" resultType="order">
         select * from `order` where `id` = #{id};
     </select>
