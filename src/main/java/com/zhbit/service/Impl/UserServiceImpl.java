@@ -5,7 +5,9 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhbit.common.Constant;
 import com.zhbit.common.Result;
@@ -21,6 +23,7 @@ import org.springframework.util.ObjectUtils;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import static com.zhbit.common.StatusCode.LOGIN_ERR;
 import static com.zhbit.common.StatusCode.LOGIN_OK;
@@ -80,6 +83,38 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
             }
         }return null;
     }
+    @Override
+    public Result modifyPassword(Map<String, String> map, String token){
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(this.secret_key);
+            JWTVerifier verifier = JWT.require(algorithm)
+                    // specify an specific claim validations
+                    .withIssuer("auth0")
+                    // reusable verifier instance
+                    .build();
+            DecodedJWT decodedJWT = verifier.verify(token);
+            String str = String.valueOf(decodedJWT.getClaim("userName"));
+            String user = str.replace("\"", "");
+            User user1 = getUserByName(user);
+            if (user1.getPassword().equals(map.get("oldPassword"))) {
+                String password2 = map.get("newPassword");
+                String password3 = map.get("checkPassword");
+
+                if(Objects.equals(password2, password3)) {
+                    user1.setPassword(map.get("newPassword"));
+                    boolean flag = updateById(user1);
+                    String msg = "save success";
+                    return new Result(flag ? StatusCode.SAVE_OK : StatusCode.SAVE_ERR, msg);
+                }else {
+                    return new Result(StatusCode.SAVE_ERR, "两次输入的密码不一致",null);
+                }
+            }else {
+                return new Result(StatusCode.SAVE_ERR, "您输入的旧密码不正确",null);
+            }
+        } catch (JWTVerificationException exception) {
+            return null;
+        }
+    }
 
     @Override
     public Result addUser(Map<String, String> map,String token) {
@@ -91,7 +126,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
                     // reusable verifier instance
                     .build();
             DecodedJWT decodedJWT = verifier.verify(token);
-            String  perms = String.valueOf(decodedJWT.getClaim("perms"));
+            String perms = String.valueOf(decodedJWT.getClaim("perms"));
             if (perms.equals(Constant.admin)) {
                 User user = new User();
                 user.setUserName(map.get("userName"));

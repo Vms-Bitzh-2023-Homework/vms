@@ -30,13 +30,9 @@ public class UserController {
     }
 
     @PutMapping("/user/modifyPassword")
-    public Result modifyPassword(@RequestBody Map<String, String> map) {
-        User user = new User();
-        user.setId(Integer.parseInt(map.get("id")));
-        user.setPassword(map.get("password"));
-        boolean flag = userService.updateById(user);
-        String msg = "update success";
-        return new Result(flag ? StatusCode.SAVE_OK : StatusCode.SAVE_ERR, msg);
+    public Result modifyPassword(@RequestBody Map<String, String> map, HttpServletRequest request) {
+        String token = request.getHeader("Authorization");
+        return userService.modifyPassword(map,token);
     }
 
     @PostMapping("/user/addUser")
