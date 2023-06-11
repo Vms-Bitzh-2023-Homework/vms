@@ -45,10 +45,6 @@ public class VisitorInfoController {
 
     @PostMapping
     public Result addVisitorInfo(@RequestBody VisitorInfo visitorInfo){
-        //VisitorInfo visitorInfo = new VisitorInfo();
-        //visitorInfo.setVisPhone(map.get("visPhone"));
-        //visitorInfo.setCarNo(map.get("carNo"));
-        //visitorInfo.setVisName(map.get("visName"));
         boolean flag = visitorInfoService.save(visitorInfo);
         String msg = "save success";
         return new Result(flag ? StatusCode.SAVE_OK:StatusCode.SAVE_ERR,msg);
@@ -56,11 +52,6 @@ public class VisitorInfoController {
 
     @PutMapping
     public Result updateVisitorInfo(@RequestBody VisitorInfo visitorInfo) {
-        //VisitorInfo visitorInfo = new VisitorInfo();
-        //visitorInfo.setId(Integer.parseInt(map.get("id")));
-        //visitorInfo.setVisPhone(map.get("visPhone"));
-        //visitorInfo.setCarNo(map.get("carNo"));
-        //visitorInfo.setVisName(map.get("visName"));
         boolean flag = visitorInfoService.updateById(visitorInfo);
         String msg = "update success";
         return new Result(flag ? StatusCode.UPDATE_OK:StatusCode.UPDATE_ERR,msg);

@@ -15,6 +15,8 @@ public interface UserService extends IService<User> {
 
     Map Login(String userName, String password);
 
-    Result addUser (Map<String, String> map,String token);
+    Result modifyPassword(Map<String, String> map, String token);
+
+    Result addUser (Map<String, String> map, String token);
 
 }
