@@ -26,7 +26,4 @@ public class InOutRecord {
 
     @TableField("out_time")
     private LocalDateTime Out_time;
-
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate date;
 }
