@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Service
@@ -65,16 +66,17 @@ public class InOutRecordServiceImpl extends ServiceImpl<InOutRecordMapper,InOutR
             LocalDateTime inTime = inOutRecord.getIn_time();
             LocalDateTime outTime = inOutRecord.getOut_time();
 
-
+            long secondsDiff = ChronoUnit.SECONDS.between(inTime, outTime); // 计算时间差，单位为秒
+            String timestampDiff = String.valueOf(secondsDiff * 1000); // 将时间差转换为时间戳，单位为毫秒
+            System.out.println(timestampDiff);
             Duration duration = Duration.between(inTime, outTime);
             long seconds = duration.getSeconds(); // 计算时间差的秒数
-            String diffTime = String.format("%02d:%02d:%02d", seconds / 3600, (seconds % 3600) / 60, seconds % 60); // 构建时间差字符串
             double price = ((double) seconds / 60) * 0.0167; // 计算价格
 
             Order order = new Order();
             order.setCarNumber(inOutRecord.getCarNo());
             order.setStatus(Constant.status2);
-            order.setParkingTime(diffTime);
+            order.setParkingTime(timestampDiff);
             order.setMoney(price);
 
             orderMapper.updateOrder(order);
