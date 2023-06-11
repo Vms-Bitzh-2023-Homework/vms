@@ -31,6 +31,17 @@ public class InOutRecordController {
         return new Result(statusCode,msg,record);
     }
 
+    /**
+     * 出入时间列表
+     */
+    @PostMapping("/inOutList")
+    public Result inOutList(@RequestBody InOutRecord inOutRecord){
+        List<InOutRecord> record = inOutRecordService.inOutList(inOutRecord);
+        Integer statusCode = record != null ? StatusCode.GET_OK : StatusCode.GET_ERR;
+        String msg = record != null ? "query success" : "数据查询失败，请重试！";
+        return new Result(statusCode,msg,record);
+    }
+
     @GetMapping("/{carNo}")
     public Result getRecordByCarNo(@PathVariable String carNo) {
         QueryWrapper wrapper = new QueryWrapper();

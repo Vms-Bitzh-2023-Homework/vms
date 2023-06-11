@@ -22,4 +22,15 @@
         update `in_out_record` set `carNo`=#{carNo},`In_time`=#{In_time},`Out_time`=#{Out_time} where `id`=#{id}
     </update>
 
+    <select id="inOutList" parameterType="com.zhbit.pojo.InOutRecord" resultType="com.zhbit.pojo.InOutRecord">
+        select * from in_out_record
+        where In_time is not null  and Out_time is not null
+        <if test="carNo != null and carNo != ''">
+            and `carNo`=#{carNo}
+        </if>
+        <if test="date != null">
+            AND DATE(In_time) = #{date}
+            or DATE(Out_time) = #{date}
+        </if>
+    </select>
 </mapper>

@@ -19,4 +19,6 @@ public interface InOutRecordMapper extends BaseMapper<InOutRecord> {
 
     boolean updateRecord(InOutRecord inOutRecord);
 
+    List<InOutRecord> inOutList(InOutRecord inOutRecord);
+
 }

@@ -17,4 +17,6 @@ public interface InOutRecordService extends IService<InOutRecord> {
 
     boolean updateRecord(InOutRecord inOutRecord);
 
+    List<InOutRecord> inOutList(InOutRecord inOutRecord);
+
 }
