@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
+@Transactional(rollbackFor = Exception.class)
 @Service
 public class InOutRecordServiceImpl extends ServiceImpl<InOutRecordMapper,InOutRecord> implements InOutRecordService {
 
@@ -54,7 +55,7 @@ public class InOutRecordServiceImpl extends ServiceImpl<InOutRecordMapper,InOutR
 
             return true;
         }catch (Exception e) {
-            return false;
+            return false; //增加失败，事务回滚
         }
 
     }
@@ -84,7 +85,7 @@ public class InOutRecordServiceImpl extends ServiceImpl<InOutRecordMapper,InOutR
 
             return true; // 更新成功
         } catch (Exception e) {
-            return false; // 更新失败
+            return false; // 更新失败，事务回滚
         }
     }
 

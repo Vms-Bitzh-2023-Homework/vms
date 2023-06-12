@@ -18,6 +18,7 @@ import com.zhbit.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import java.util.Date;
@@ -29,6 +30,7 @@ import static com.zhbit.common.StatusCode.LOGIN_ERR;
 import static com.zhbit.common.StatusCode.LOGIN_OK;
 
 
+@Transactional(rollbackFor = Exception.class)
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements UserService {
 
