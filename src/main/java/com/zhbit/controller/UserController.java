@@ -20,7 +20,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public Map login(String userName, String password, HttpServletResponse response) {
         Map login = userService.Login(userName, password);
         if (login.get("statusCode").equals(LOGIN_OK)) {
